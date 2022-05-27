@@ -1,0 +1,407 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+
+public class SpawnGroundF1 : MonoBehaviour {
+	
+	public float maxHeight;
+	public float mileScore;
+	public float minHeight;
+	public float lastRandPosition;
+	public float rateSpawn;
+	public float speedBasic;
+	private float currentSpawn;
+	public float p1, p2, p3;
+	
+	public int maxGround;
+	public int QtdGround;
+	public int score;
+	
+	private bool spawn;
+	private bool tempo;
+
+	public static string fase;
+	public static float speedFase;
+	public static float speedIncrease;
+
+	public float rend;
+
+	public GameObject[] prefab;
+	public GameObject[] prefab2;
+	public GameObject[] prefab3;
+	public GameObject[] prefabT;
+
+	public GameObject lastGroundF1;
+	public GameObject lastGroundF2;
+	public GameObject firstGroundF2;
+	public GameObject firstGroundF3;
+
+	public List<GameObject> ground;
+	public List<GameObject> ground2;
+	public List<GameObject> ground3;
+	public List<GameObject> fly;
+
+	// Use this for initialization
+	void Start () {
+		score = 0;
+		speedIncrease = 0;
+		fase = "FASE01";
+
+		for (int i = 0; i < maxGround; i++) {
+			GameObject tempPlataforma = Instantiate(prefab[QtdGround]) as GameObject;
+			ground.Add(tempPlataforma);
+			tempPlataforma.SetActive(false);
+			QtdGround++;
+			if (QtdGround > 4)
+			{
+				QtdGround = 0;
+			}
+
+		}
+
+		lastGroundF1.SetActive (false);
+		lastGroundF2.SetActive (false);
+		firstGroundF2.SetActive (false);
+		firstGroundF3.SetActive (false);
+
+		speedBasic = -4f;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+		speedFase = speedBasic+ speedIncrease;
+		currentSpawn += Time.deltaTime;
+		if (currentSpawn > rateSpawn && !tempo) 
+		{
+			rateSpawn = Random.Range (0.5f, 1f);
+			currentSpawn = 0;
+			Spawn ();
+
+		}
+		if (tempo && currentSpawn > 5f)
+		{
+			tempo = false;
+		}
+
+		UpdateScore ();
+		faseControll ();
+
+	}
+	
+	private void Spawn() {
+
+		if (fase == "TRANSICAO") 
+		{
+			rateSpawn = 1f;
+			float rendPositionT = Random.Range (0,11);
+			GameObject tempGroundT = null;
+			spawn = true;
+			for (int i = 0; i < maxGround; i++) {
+				if (fly[i].activeSelf == false)
+				{
+					tempGroundT = fly[i];
+					break;
+				}
+
+			}
+
+			if (tempGroundT != null) 
+			{
+				if (spawn)
+				{
+					if (rendPositionT < 4)
+					{
+						tempGroundT.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+						tempGroundT.SetActive(true);
+						spawn = false;
+					}
+
+					if (rendPositionT > 3 && rendPositionT < 7)
+					{
+						tempGroundT.transform.position = new Vector3(transform.position.x, 2, transform.position.z);
+						tempGroundT.SetActive(true);
+						spawn = false;
+					}
+
+					if (rendPositionT > 6)
+					{
+						tempGroundT.transform.position = new Vector3(transform.position.x, -2, transform.position.z);
+						tempGroundT.SetActive(true);
+						spawn = false;
+					}
+				}
+			}
+		}
+		if (fase == "FASE01" || fase == "FASE02" || fase == "FASE03") 
+		{
+			float rendPosition = Random.Range (0,11);
+			GameObject tempGround = null;
+			spawn = true;
+			for (int i = 0; i < maxGround; i++) {
+				if (fase == "FASE01")
+				{
+					if (ground[i].activeSelf == false)
+					{
+						tempGround = ground[i];
+						break;
+					}
+				}
+
+				if (fase == "FASE02")
+				{
+					if (ground2[i].activeSelf == false)
+					{
+						tempGround = ground2[i];
+						break;
+					}
+				}
+
+				if (fase == "FASE03")
+				{
+					if (ground3[i].activeSelf == false)
+					{
+						tempGround = ground3[i];
+						break;
+					}
+				}
+			}
+			if (tempGround != null) 
+			{
+				if (p1 == lastRandPosition && spawn)
+				{
+					if (rendPosition < 5)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p1;
+						spawn = false;
+					}
+					
+					if (rendPosition > 4)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p2, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p2;
+						spawn = false;
+					}
+				}
+				
+				if (p2 == lastRandPosition && spawn)
+				{
+					if (rendPosition == 4 || rendPosition == 3)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p1;
+						spawn = false;
+					}
+					
+					if (rendPosition == 2 || rendPosition == 1 || rendPosition == 0)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p2, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p2;
+						spawn = false;
+					}
+					
+					if (rendPosition > 4 && spawn)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p3, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p3;
+						spawn = false;
+					}
+				}
+				
+				if (p3 == lastRandPosition && spawn)
+				{
+					if (rendPosition == 2 || rendPosition == 3 || rendPosition == 6)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p1;
+						spawn = false;
+					}
+					
+					if (rendPosition == 0 || rendPosition == 1 || rendPosition == 9 || rendPosition == 7)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p2, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p2;
+						spawn = false;
+					}
+					
+					if (rendPosition == 4 || rendPosition == 5 || rendPosition == 8 || rendPosition > 9)
+					{
+						tempGround.transform.position = new Vector3(transform.position.x, p3, transform.position.z);
+						tempGround.SetActive(true);
+						lastRandPosition = p3;
+						spawn = false;
+					}
+				}
+			}
+		}
+	}
+
+	private void UpdateScore()
+	{
+		mileScore += 20*Time.deltaTime;
+		if (mileScore > 100) 
+		{
+			score++;
+			mileScore = 0;
+		}
+
+		if (score == 3) {speedBasic = -5f;}
+		if (score == 15) {speedBasic = -6f;}
+		if (score == 20) {speedBasic = -7f;}
+		if (score == 25) {speedBasic = -8f;}
+		if (score == 30) {speedBasic = -9f;}
+		if (score == 35) {speedBasic = -10f;}
+		if (score == 40) {speedBasic = -12f;}
+		if (score == 45) {speedBasic = -14f;}
+	}
+
+	void faseControll()
+	{
+		int caseSwitch = score;
+		switch (caseSwitch) 
+		{
+		case 9:
+
+			fase = "STANDBY";
+			currentSpawn += Time.deltaTime;
+			if (currentSpawn > rateSpawn && !lastGroundF1.activeSelf) 
+			{
+				currentSpawn = 0;
+				lastGroundF1.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+				lastGroundF1.SetActive(true);
+				lastRandPosition = p1;
+			}
+			break;
+
+		case 11:
+
+			for (int i = 0; i < maxGround; i++) {
+				Destroy(ground[i]);
+			}
+			
+			if (fase == "STANDBY")
+			{
+				fase = "TRANSICAO";
+				for (int i = 0; i < maxGround; i++) 
+				{
+					GameObject tempPlataforma = Instantiate(prefabT[QtdGround]) as GameObject;
+					fly.Add(tempPlataforma);
+					tempPlataforma.SetActive(false);
+					QtdGround++;
+					if (QtdGround > 4)
+					{
+						QtdGround = 0;
+					}
+					
+				}
+			}
+			break;
+
+		case 18:
+
+			fase = "STANDBY";
+			break;
+
+
+		case 19:
+
+			fase = "FASE02";
+			BGTransicao.gatilho = "FASE";
+			if (firstGroundF2.activeSelf == false)
+			{
+				for (int i = 0; i < maxGround; i++) {
+					GameObject tempPlataforma = Instantiate(prefab2[QtdGround]) as GameObject;
+					ground2.Add(tempPlataforma);
+					tempPlataforma.SetActive(false);
+					QtdGround++;
+					if (QtdGround > 4)
+					{
+						QtdGround = 0;
+					}
+					
+				}
+				
+				firstGroundF2.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+				firstGroundF2.SetActive(true);
+				lastRandPosition = p1;
+				tempo = true;
+				currentSpawn = 0;
+			}
+			break;
+
+		case 30:
+
+			fase = "STANDBY";
+			lastGroundF2.SetActive(true);
+			break;
+
+		case 32:
+
+			for (int i = 0; i < maxGround; i++) {
+				Destroy(ground2[i]);
+			}
+			
+			if (fase == "STANDBY")
+			{
+				fase = "TRANSICAO";
+				for (int i = 0; i < maxGround; i++) 
+				{
+					GameObject tempPlataforma = Instantiate(prefabT[QtdGround]) as GameObject;
+					fly.Add(tempPlataforma);
+					tempPlataforma.SetActive(false);
+					QtdGround++;
+					if (QtdGround > 4)
+					{
+						QtdGround = 0;
+					}
+					
+				}
+			}
+			break;
+
+		case 42:
+			
+			fase = "STANDBY";
+			break;
+		case 43:
+
+			fase = "FASE03";
+			BGTransicao.gatilho = "FASE";
+			if (firstGroundF3.activeSelf == false)
+			{
+				for (int i = 0; i < maxGround; i++) {
+					GameObject tempPlataforma = Instantiate(prefab3[QtdGround]) as GameObject;
+					ground3.Add(tempPlataforma);
+					tempPlataforma.SetActive(false);
+					QtdGround++;
+					if (QtdGround > 4)
+					{
+						QtdGround = 0;
+					}
+				}
+				
+				firstGroundF3.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
+				firstGroundF3.SetActive(true);
+				lastRandPosition = p1;
+				tempo = true;
+				currentSpawn = 0;
+				for (int i = 0; i < maxGround; i++) {
+					Destroy(ground2[i]);
+				}
+				for (int i = 0; i < maxGround; i++) {
+					Destroy(fly[i]);
+				}
+			}
+			break;
+		}
+	}
+}
