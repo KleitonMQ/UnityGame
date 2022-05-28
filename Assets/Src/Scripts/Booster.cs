@@ -15,7 +15,7 @@ public class Booster : MonoBehaviour {
 	private float speedP;
 
 	public sbyte boost;
-
+	private bool boostFly;
 	private bool moeda;
 	//private bool verify;
 
@@ -28,6 +28,7 @@ public class Booster : MonoBehaviour {
 		speedP = 0.1f;
 		count = 0;
 		boost = 0;
+		boostFly = false;
 		countBooster = 0;
 	}
 	
@@ -36,6 +37,21 @@ public class Booster : MonoBehaviour {
 
 		pegouMoeda ();
 		
+		if (boostFly) 
+		{
+			
+			countBooster += Time.deltaTime;
+			if (countBooster >= 5)
+			{
+				SpawnGroundF1.speedIncrease += 1f;
+				boostFly = false;
+				countBooster = 0;
+
+			}
+			enemy.transform.position -= new Vector3 (speedP * 20 * Time.deltaTime, 0, 0);
+
+		}
+
 		if (boost != 0) 
 		{
 
@@ -63,18 +79,13 @@ public class Booster : MonoBehaviour {
 				player.transform.position += new Vector3 (speedP * Time.deltaTime, 0, 0);
 			}
 		}
-
-		if (boost == 2) 
-		{
-			enemy.transform.position -= new Vector3 (speedP * 20 * Time.deltaTime, 0, 0);
-
-		}
 	}
 
 	void OnTriggerEnter2D (Collider2D colisao)
 	{
 		if (colisao.gameObject.name == "Player" && this.name == "Booster" && !moeda) 
 		{
+			countBooster = 0;
 			SpawnGroundF1.speedIncrease -= 1f;
 			boost = -1;
 			animator = moedaT.GetComponent<Animator>();
@@ -84,7 +95,8 @@ public class Booster : MonoBehaviour {
 		}
 		if (colisao.gameObject.name == "Player" && this.name == "Fly") 
 		{
-			boost = 2;
+			boost = 0;
+			boostFly = true;
 			Touch.ModoControle = "Estatico";
 			this.transform.position = new Vector3(0,100,0);
 			BGTransicao.gatilho = "TRANSICAO";

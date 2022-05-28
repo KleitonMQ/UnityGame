@@ -4,7 +4,7 @@ using System.Collections;
 public class Sons : MonoBehaviour {
 	public bool audio2;
 	public bool audio3;
-
+	public string fase;
 	// Use this for initialization
 	void Start () {
 
@@ -17,21 +17,22 @@ public class Sons : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (SpawnGroundF1.fase == "FASE02" && this.name == "Main Camera") 
+		fase = SpawnGroundF1.faseInfo;
+		if (fase == "FASE02" && this.name == "Main Camera") 
 		{
 			GetComponent<AudioSource>().Stop();
 		}
-		if (SpawnGroundF1.fase == "FASE02" && !audio2 && this.name == "Player") 
+		if (fase == "FASE02" && !audio2 && this.name == "Player") 
 		{
 			GetComponent<AudioSource>().Play();
 			audio2 = true;
 		}
-		if (SpawnGroundF1.fase == "FASE03" && !audio3 && this.name == "Hud") 
+		if (fase == "FASE03" && !audio3 && this.name == "Hud") 
 		{
 			GetComponent<AudioSource>().Play();
 			audio3 = true;
 		}
-		if (SpawnGroundF1.fase == "FASE03" && this.name == "Player") 
+		if (fase == "FASE03" && this.name == "Player") 
 		{
 			GetComponent<AudioSource>().Stop();
 		}

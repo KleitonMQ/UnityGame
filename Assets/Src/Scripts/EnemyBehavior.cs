@@ -12,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public float speed;
 	public float speedP;
 	public int count = 0;
-
+	public string fase;
 
 	// Use this for initialization
 	void Start () {
@@ -22,11 +22,11 @@ public class EnemyBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+		fase = SpawnGroundF1.faseInfo;
 
 		if (enemy.name == "Enemy02") 
 		{
-			enemy.transform.position += new Vector3 (speed, 0, 0);
+			enemy.transform.position += new Vector3 (90f*speed*Time.deltaTime, 0, 0);
 			if (count > 0)
 			{
 				count -= 1;
@@ -61,7 +61,7 @@ public class EnemyBehavior : MonoBehaviour {
 			{
 				enemy.transform.position += new Vector3 ((SpawnGroundF1.speedFase - 0.5f) * Time.deltaTime , 0, 0);
 			}
-			if (enemy.transform.position.x >= 10 && SpawnGroundF1.fase == "TRANSICAO")
+			if (enemy.transform.position.x >= 10 && fase == "TRANSICAO")
 			{
 				enemy.transform.position += new Vector3 ((SpawnGroundF1.speedFase - 1.5f) * Time.deltaTime, 0, 0);
 			}
@@ -73,7 +73,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 		if (enemy.name == "EnemyP") 
 		{
-			if (SpawnGroundF1.fase == "FASE02" && (this.transform.position.x <= -9.22))
+			if (fase == "FASE02" && (this.transform.position.x <= -9.22))
 			{
 				enemy.transform.position += new Vector3 (5 * Time.deltaTime, 0, 0);
 				

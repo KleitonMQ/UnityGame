@@ -35,7 +35,7 @@ public class Touch : MonoBehaviour {
 	public GameObject shadow;
 
 	public static string ModoControle;
-	public static bool toqueChave;
+	public bool toqueChave;
 	public static Transform enemyPS;
 	public static Transform playerS;
 
@@ -64,8 +64,7 @@ public class Touch : MonoBehaviour {
 		isGrounded = Physics2D.Linecast (player.transform.position, ground.position, 1
                        << LayerMask.NameToLayer ("Plataforma"));
 
-		isGrounded2 = Physics2D.Linecast (player.transform.position, ground2.position, 1
-		                                 << LayerMask.NameToLayer ("Plataforma"));
+		isGrounded2 = Physics2D.Linecast (player.transform.position, ground2.position, 1 << LayerMask.NameToLayer ("Plataforma"));
 
 		if (isGrounded && isGrounded2 && jumped) 
 		{
@@ -146,7 +145,7 @@ public class Touch : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		if (countJump > 0.35f && ModoControle == "Correr")
+		if (countJump > 1f && ModoControle == "Correr")
 		{
 			tocou = true;
 		}
@@ -167,14 +166,13 @@ public class Touch : MonoBehaviour {
 			appForce = false;
 			jumped = false;
 			playerBox.isTrigger = true;
-			//playerCircle.isTrigger = true;
-
+			
 		}
 
 		if (tocou && !appForce && ModoControle == "Correr") {
 
 			contador += Time.deltaTime;
-			enemyP.position += new Vector3(0.3f*Time.deltaTime, 0, 0);
+			enemyP.position += new Vector3(0.2f*Time.deltaTime, 0, 0);
 			if (contador > 0.45f)
 			{
 				appForce = true;

@@ -21,8 +21,7 @@ public class SepareGround : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		sobreposto = Physics2D.Linecast(this.transform.position, pontoSobreposto.transform.position, 1
-		                                << LayerMask.NameToLayer("Plataforma"));
+		sobreposto = Physics2D.Linecast(this.transform.position, pontoSobreposto.transform.position, 1 << LayerMask.NameToLayer("Plataforma"));
 
 		if (sobreposto) 
 		{

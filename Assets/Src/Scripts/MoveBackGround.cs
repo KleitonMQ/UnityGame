@@ -6,7 +6,7 @@ public class MoveBackGround : MonoBehaviour {
 	public SpriteRenderer spriteRenderBG;
 	public float red, green, blue, alfa;
 	private float contador;
-
+	public string fase;
 	void Start()
 	{
 		red = spriteRenderBG.color.r;
@@ -17,10 +17,10 @@ public class MoveBackGround : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-
+		fase = SpawnGroundF1.faseInfo;
 		spriteRenderBG.color = new Color (red, green, blue, alfa);
 
-		if (SpawnGroundF1.fase == "FASE02") 
+		if (fase == "FASE02") 
 		{
 			spriteRenderBG.color = new Color (red, green, blue, alfa);
 			contador += Time.deltaTime;
@@ -47,7 +47,7 @@ public class MoveBackGround : MonoBehaviour {
 			}
 		}
 
-		if (SpawnGroundF1.fase == "FASE03") 
+		if (fase == "FASE03") 
 		{
 			spriteRenderBG.color = new Color (red, green, blue, alfa);
 			contador += Time.deltaTime;

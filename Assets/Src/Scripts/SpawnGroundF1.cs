@@ -21,10 +21,10 @@ public class SpawnGroundF1 : MonoBehaviour {
 	private bool spawn;
 	private bool tempo;
 
-	public static string fase;
+	public string fase;
+	public static string faseInfo;
 	public static float speedFase;
 	public static float speedIncrease;
-
 	public float rend;
 
 	public GameObject[] prefab;
@@ -70,17 +70,39 @@ public class SpawnGroundF1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		faseInfo = fase;
 		speedFase = speedBasic+ speedIncrease;
 		currentSpawn += Time.deltaTime;
 		if (currentSpawn > rateSpawn && !tempo) 
 		{
-			rateSpawn = Random.Range (0.5f, 1f);
+			if (fase == "FASE01")
+			{
+			rateSpawn = Random.Range (0.2f, 0.5f);
 			currentSpawn = 0;
 			Spawn ();
+			}
+			if (fase == "FASE02")
+			{
+			rateSpawn = Random.Range (0f, 0.3f);
+			currentSpawn = 0;
+			Spawn ();
+			}
+			if (fase == "FASE03")
+			{
+			rateSpawn = Random.Range (0f, 0.1f);
+			currentSpawn = 0;
+			Spawn ();
+			}
+
+			if (fase == "TRANSICAO")
+			{
+			rateSpawn = Random.Range (3f, 1.5f);
+			currentSpawn = 0;
+			Spawn ();
+			}
 
 		}
-		if (tempo && currentSpawn > 5f)
+		if (tempo && currentSpawn > 5.2f)
 		{
 			tempo = false;
 		}
@@ -253,15 +275,16 @@ public class SpawnGroundF1 : MonoBehaviour {
 			score++;
 			mileScore = 0;
 		}
-
-		if (score == 3) {speedBasic = -5f;}
-		if (score == 15) {speedBasic = -6f;}
-		if (score == 20) {speedBasic = -7f;}
-		if (score == 25) {speedBasic = -8f;}
-		if (score == 30) {speedBasic = -9f;}
-		if (score == 35) {speedBasic = -10f;}
-		if (score == 40) {speedBasic = -12f;}
-		if (score == 45) {speedBasic = -14f;}
+//Aumento gradativo da velocidade de corrida.
+		if (score == 0) {speedBasic = -4.5f;}
+		if (score == 3) {speedBasic = -5.0f;}
+		if (score == 8) {speedBasic = -5.5f;}
+		if (score == 13) {speedBasic = -6.5f;}
+		if (score == 20) {speedBasic = -7.0f;}
+		if (score == 30) {speedBasic = -7.5f;}
+		if (score == 40) {speedBasic = -8.0f;}
+		if (score == 45) {speedBasic = -8.5f;}
+		if (score == 60) {speedBasic = -9.0f;}
 	}
 
 	void faseControll()
@@ -269,15 +292,15 @@ public class SpawnGroundF1 : MonoBehaviour {
 		int caseSwitch = score;
 		switch (caseSwitch) 
 		{
-		case 9:
+		case 8:
 
 			fase = "STANDBY";
 			currentSpawn += Time.deltaTime;
-			if (currentSpawn > rateSpawn && !lastGroundF1.activeSelf) 
+			if ( !lastGroundF1.activeSelf) 
 			{
+				lastGroundF1.SetActive(true);
 				currentSpawn = 0;
 				lastGroundF1.transform.position = new Vector3(transform.position.x, p1, transform.position.z);
-				lastGroundF1.SetActive(true);
 				lastRandPosition = p1;
 			}
 			break;
@@ -338,13 +361,13 @@ public class SpawnGroundF1 : MonoBehaviour {
 			}
 			break;
 
-		case 30:
+		case 26:
 
 			fase = "STANDBY";
 			lastGroundF2.SetActive(true);
 			break;
 
-		case 32:
+		case 28:
 
 			for (int i = 0; i < maxGround; i++) {
 				Destroy(ground2[i]);
@@ -368,11 +391,11 @@ public class SpawnGroundF1 : MonoBehaviour {
 			}
 			break;
 
-		case 42:
+		case 34:
 			
 			fase = "STANDBY";
 			break;
-		case 43:
+		case 35:
 
 			fase = "FASE03";
 			BGTransicao.gatilho = "FASE";

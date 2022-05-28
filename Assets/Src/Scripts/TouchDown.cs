@@ -15,7 +15,7 @@ public class TouchDown : MonoBehaviour {
 	public bool touch;
 	public bool isGrounded;
 	public bool touchOn;
-
+	public bool toqueChave;
 	public Transform ground;
 	public BoxCollider2D playerBox;
 	public CircleCollider2D playerCircle;
@@ -46,7 +46,7 @@ public class TouchDown : MonoBehaviour {
 		if (playerBox.isTrigger && playerCircle.isTrigger && touch  && Touch.ModoControle == "Correr") 
 		{
 			contTriger += Time.deltaTime;
-			if (contTriger > 0.35f)
+			if (contTriger > 0.3f)
 			{
 				touch = false;
 				playerBox.isTrigger = false;
@@ -60,10 +60,11 @@ public class TouchDown : MonoBehaviour {
 		if (Touch.ModoControle == "Fly" & !Deadh.morto) 
 		{
 			touchOn = true;
+			//touch = false;
 			contTriger += Time.deltaTime;
-			if ((touch && playerO.position.y == 2f && Touch.toqueChave) || emTransicao == 1)
+			if ((touch && playerO.position.y == 2f && toqueChave) || emTransicao == 1)
 			{
-				Touch.toqueChave = false;
+				toqueChave = false;
 				emTransicao = 1;
 				playerO.eulerAngles = new Vector3(0,0, -45);
 				playerO.position -= new Vector3(0, 1 * speed * Time.deltaTime, 0);
@@ -73,12 +74,12 @@ public class TouchDown : MonoBehaviour {
 					playerO.position = new Vector3(playerO.position.x, 0f, 0);
 					playerO.eulerAngles = new Vector3(0,0, -15);
 					emTransicao = 0;
-					Touch.toqueChave = true;
+					toqueChave = true;
 				}
 			}
-			if ((touch && player.position.y == 0f && Touch.toqueChave) || emTransicao == 2)
+			if ((touch && player.position.y == 0f && toqueChave) || emTransicao == 2)
 			{
-				Touch.toqueChave = false;
+				toqueChave = false;
 				emTransicao = 2;
 				playerO.eulerAngles = new Vector3(0,0, -45);
 				playerO.position -= new Vector3(0, 1 * speed * Time.deltaTime, 0);
@@ -88,7 +89,7 @@ public class TouchDown : MonoBehaviour {
 					playerO.position = new Vector3(playerO.position.x, -2.1f, 0);
 					playerO.eulerAngles = new Vector3(0,0, -15);
 					emTransicao = 0;
-					Touch.toqueChave = true;
+					toqueChave = true;
 				}
 			}
 		}
@@ -113,10 +114,11 @@ public class TouchDown : MonoBehaviour {
 		}
 		if (Touch.ModoControle == "Fly") 
 		{
-			if (contTriger > 0.25f && playerO.position.y > -1.9f)
+			if (contTriger > 0.5f && playerO.position.y > -1.9f)
 			{
 				touch = true;
 				contTriger = 0;
+				toqueChave = true;
 			}
 		}
 	}
