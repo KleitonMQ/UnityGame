@@ -89,14 +89,14 @@ public class SpawnGroundF1 : MonoBehaviour {
 			}
 			if (fase == "FASE03")
 			{
-			rateSpawn = Random.Range (0f, 0.1f);
+			rateSpawn = Random.Range (0f, 0.5f);
 			currentSpawn = 0;
 			Spawn ();
 			}
 
 			if (fase == "TRANSICAO")
 			{
-			rateSpawn = Random.Range (3f, 1.5f);
+			rateSpawn = Random.Range (2f, 1.5f);
 			currentSpawn = 0;
 			Spawn ();
 			}
