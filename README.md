@@ -1,12 +1,10 @@
 <body>
-    <h1 align="center">Jogo Runner de plataforma com Unity</h1>
-    <h2 align="center">Código Fonte escrito em C#</h2>
-
-    <h3>
-        Projeto pensado para rodar em dispositivos android.
-    </h3>
-
-    <h3>Conceito geral</h3>
+<h1 align="center">Jogo Runner de plataforma com Unity</h1>
+<h2 align="center">Código Fonte escrito em C#</h2>
+<h3>
+Projeto pensado para rodar em dispositivos android.
+</h3>
+     <h3>Conceito geral</h3>
     <div style=display:flex>
         <p>
             O personagem precisa desviar dos inimigos, coletar power up's e cristais para progredir no jogo enquanto
@@ -23,8 +21,6 @@
     <div align="center">
         <img width="450" src="Gameplay/controle.png" alt="controles">
     </div>
-
-
     <p> Programador: <a href="https://github.com/KleitonMQ">Kleiton MQ.</a></p>
     <p> Artista: Thiago Dadespo</p>
     <h3 align="center">Gameplay:</h3>
