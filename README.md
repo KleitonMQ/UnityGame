@@ -1,10 +1,10 @@
 <body>
-<h1 align="center">Jogo Runner de plataforma com Unity</h1>
-<h2 align="center">Código Fonte escrito em C#</h2>
-<h3>
-Projeto pensado para rodar em dispositivos android.
-</h3>
-     <h3>Conceito geral</h3>
+    <h1 align="center">Jogo Runner de plataforma com Unity</h1>
+    <h2 align="center">Código Fonte escrito em C#</h2>
+    <h3>
+        Projeto pensado para rodar em dispositivos android.
+    </h3>
+    <h3>Conceito geral</h3>
     <div style=display:flex>
         <p>
             O personagem precisa desviar dos inimigos, coletar power up's e cristais para progredir no jogo enquanto
@@ -23,10 +23,8 @@ Projeto pensado para rodar em dispositivos android.
     </div>
     <p> Programador: <a href="https://github.com/KleitonMQ">Kleiton MQ.</a></p>
     <p> Artista: Thiago Dadespo</p>
-    <h3 align="center">Gameplay:</h3>
-    <div align="center">
-        <video width="500" src="Gameplay/Gameplay 1.mp4" type="video/mp4" controls height="400"></video>
-        <video width="500" src="Gameplay/Gameplay 2.mp4" type="video/mp4" controls height="400"></video>
+    <h3 align="center"><a href="https://youtu.be/IOznEoePrVQ">Mais detalhes no vídeo de gameplay Gameplay aqui. <br> <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Youtube Icone"></a> </h3>
+
     </div>
 
     <p>OBS1: A fase deveria ser maior, mas para demonstração foi reduzido o tempo em cada uma.</p>
