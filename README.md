@@ -26,5 +26,5 @@
     <h3 align="center"><a href="https://youtu.be/IOznEoePrVQ">Mais detalhes no vídeo de gameplay Gameplay aqui. <br> <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Youtube Icone"></a> </h3>
     </div>
     <p>OBS1: A fase deveria ser maior, mas para demonstração foi reduzido o tempo em cada uma.</p>
-    <p>OBS2:No momento o desenvolvimento está suspenso por decisão dos integrantes do grupo.</p>
+    <p>OBS2:No momento o, desenvolvimento está suspenso por decisão dos integrantes do grupo.</p>
 </body>
